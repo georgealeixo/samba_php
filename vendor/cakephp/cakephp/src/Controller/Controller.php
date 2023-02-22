@@ -271,10 +271,10 @@ class Controller implements EventListenerInterface, EventDispatcherInterface
      * For example:
      *
      * ```
-     * $this->loadComponent('Acl.Acl');
+     * $this->loadComponent('Authentication.Authentication');
      * ```
      *
-     * Will result in a `Toolbar` property being set.
+     * Will result in a `Authentication` property being set.
      *
      * @param string $name The name of the component to load.
      * @param array $config The config for the component.

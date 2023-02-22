@@ -328,13 +328,13 @@ class Query implements ExpressionInterface, IteratorAggregate
      * });
      * ```
      *
-     * @param callable $visitor A function or callable to be executed for each part
+     * @param callable $callback A function or callable to be executed for each part
      * @return $this
      */
-    public function traverse($visitor)
+    public function traverse($callback)
     {
         foreach ($this->_parts as $name => $part) {
-            $visitor($part, $name);
+            $callback($part, $name);
         }
 
         return $this;
@@ -1494,6 +1494,9 @@ class Query implements ExpressionInterface, IteratorAggregate
      */
     public function limit($num)
     {
+        if (is_string($num) && !is_numeric($num)) {
+            throw new InvalidArgumentException('Invalid value for `limit()`');
+        }
         $this->_dirty();
         $this->_parts['limit'] = $num;
 
@@ -1520,6 +1523,9 @@ class Query implements ExpressionInterface, IteratorAggregate
      */
     public function offset($num)
     {
+        if (is_string($num) && !is_numeric($num)) {
+            throw new InvalidArgumentException('Invalid value for `offset()`');
+        }
         $this->_dirty();
         $this->_parts['offset'] = $num;
 

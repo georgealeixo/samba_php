@@ -460,6 +460,7 @@ class Debugger
             return $back;
         }
 
+        /** @psalm-suppress InvalidArgument */
         return implode("\n", $back);
     }
 
@@ -743,10 +744,10 @@ class Debugger
                     foreach ($var->__debugInfo() as $key => $val) {
                         $node->addProperty(new PropertyNode("'{$key}'", null, static::export($val, $context)));
                     }
-                } catch (Exception $e) {
-                    $message = $e->getMessage();
 
-                    return new SpecialNode("(unable to export object: $message)");
+                    return $node;
+                } catch (Exception $e) {
+                    return new SpecialNode("(unable to export object: {$e->getMessage()})");
                 }
             }
 
